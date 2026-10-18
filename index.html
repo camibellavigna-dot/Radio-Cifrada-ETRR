@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101710">
+  <title>Frecuencia 73 — Radio de amigos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="scanlines" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Frecuencia 73 inicio">
+      <span class="brand-icon">⌁</span>
+      <span><strong>FRECUENCIA 73</strong><small>RED DE COMUNICACIONES · EST. 2026</small></span>
+    </a>
+    <div class="status"><i class="led"></i> <span>CONSOLA EN LÍNEA</span></div>
+  </header>
+
+  <main class="layout">
+    <section class="hero panel">
+      <div class="panel-heading"><span>RECEPTOR PRINCIPAL</span><span class="mono">RX/TX · CH 07</span></div>
+      <div class="tuning">
+        <div>
+          <div class="eyebrow">FRECUENCIA DE OPERACIÓN</div>
+          <div class="frequency"><span id="freq">073</span><small>.00</small><span class="unit">MHz</span></div>
+          <div class="dial"><span>70</span><span>71</span><span>72</span><span class="dial-active">73</span><span>74</span><span>75</span><span>76</span></div>
+        </div>
+        <div class="signal-meter">
+          <div class="eyebrow">SEÑAL</div>
+          <div class="meter-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <small id="signal-label">EN ESPERA</small>
+        </div>
+      </div>
+      <div class="visualizer-wrap">
+        <div class="visualizer-title"><span>ANALIZADOR DE ESPECTRO</span><span class="mono" id="viz-status">ESPERANDO AUDIO</span></div>
+        <canvas id="spectrum" aria-label="Visualización de frecuencias del audio"></canvas>
+        <div class="viz-axis"><span>20 Hz</span><span>250 Hz</span><span>1 kHz</span><span>8 kHz</span><span>20 kHz</span></div>
+      </div>
+      <div class="now-playing">
+        <div class="album-icon">♫</div>
+        <div class="track-info"><small>TRANSMISIÓN ACTUAL</small><strong id="track-title">Frecuencia 73 — silencio de guardia</strong><span id="track-source">Esperando una señal de audio</span></div>
+        <div class="on-air"><i class="led"></i> <span>RX</span></div>
+      </div>
+      <div class="player-controls">
+        <button id="play-btn" class="primary">▶ REPRODUCIR</button>
+        <button id="stop-btn" class="secondary">■ DETENER</button>
+        <label class="volume-control">VOLUMEN <input id="volume" type="range" min="0" max="1" step="0.01" value="0.8"></label>
+      </div>
+      <div id="media-stage" class="media-stage">
+        <div class="empty-media">▣<span>El audio aparecerá aquí cuando selecciones una fuente.</span></div>
+      </div>
+      <div class="source-row">
+        <label for="youtube-url">ENLACE DE YOUTUBE</label>
+        <input id="youtube-url" type="url" placeholder="https://www.youtube.com/watch?v=..." autocomplete="url">
+        <button id="load-youtube" class="secondary">SINTONIZAR</button>
+      </div>
+      <div class="source-row">
+        <label for="audio-file">ARCHIVO LOCAL DE AUDIO</label>
+        <input id="audio-file" type="file" accept="audio/*,video/mp4">
+      </div>
+      <p class="hint">Los archivos elegidos desde tu computadora solo se reproducen en tu navegador; no se suben ni se comparten automáticamente con tus amigos.</p>
+    </section>
+
+    <aside class="side-column">
+      <section class="panel">
+        <div class="panel-heading"><span>ESTADO DE LA ESTACIÓN</span><span class="tiny-dot"></span></div>
+        <div class="status-grid">
+          <div><small>OPERADOR</small><strong>CONTROL LOCAL</strong></div>
+          <div><small>CANAL</small><strong>73 / AMIGOS</strong></div>
+          <div><small>MODULACIÓN</small><strong>WEB AUDIO</strong></div>
+          <div><small>ESTADO</small><strong class="green-text">LISTO</strong></div>
+        </div>
+        <div class="notice"><span>i</span><p>Esta consola es la primera versión local. La sala de voz y el panel protegido se conectarán en la siguiente etapa.</p></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading"><span>TRANSMISOR MORSE</span><span class="mono">CW</span></div>
+        <label class="field-label" for="morse-input">MENSAJE PARA TRANSMITIR</label>
+        <textarea id="morse-input" rows="3" maxlength="180" placeholder="ESCRIBÍ TU MENSAJE...">HOLA FRECUENCIA 73</textarea>
+        <div class="morse-actions"><button id="encode-morse" class="secondary">CODIFICAR</button><button id="play-morse" class="primary">▶ EMITIR TONO</button></div>
+        <div class="morse-output" id="morse-output" aria-live="polite">···· --- ·-·· ·-</div>
+        <div class="morse-legend"><span>· PUNTO</span><span>— RAYA</span><span>♪ 650 Hz</span></div>
+      </section>
+
+      <section class="panel voice-panel">
+        <div class="panel-heading"><span>COMUNICACIONES DE VOZ</span><span class="mono">VOIP</span></div>
+        <div class="voice-placeholder"><div class="radio-tower">♜</div><strong>SALA DE OPERADORES</strong><p>La voz grupal requiere una conexión a un servicio de voz. Esta vista todavía no transmite micrófono.</p></div>
+        <button id="voice-info" class="secondary full-width">VER ESTADO DE CONEXIÓN</button>
+        <div class="ptt-row"><span class="ptt-label">PUSH TO TALK</span><button id="ptt" class="ptt" disabled title="Se activará al conectar el servicio de voz">PULSAR<br>PARA HABLAR</button></div>
+        <small class="hint">PTT desactivado hasta configurar la sala de voz real.</small>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading"><span>ACCESO DE ADMINISTRADOR</span><span>▣</span></div>
+        <p class="hint">El panel seguro se habilitará cuando conectemos la autenticación. No introduzcas una contraseña real en esta demostración.</p>
+        <button id="admin-info" class="secondary full-width">CONFIGURACIÓN DE ADMIN</button>
+      </section>
+    </aside>
+  </main>
+  <footer><span>FRECUENCIA 73</span><span>73 DE CORTESÍA · BUENAS COMUNICACIONES</span><span>V 0.1.0</span></footer>
+  <script src="script.js"></script>
+</body>
+</html>
